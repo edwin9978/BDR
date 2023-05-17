@@ -182,7 +182,7 @@ flowchart TD
     H[AwardsManagers]-->H4([lgID])        -->HD4{{Texto2}}
     H[AwardsManagers]-->H5([tie])         -->HD5{{Texto1}}
 
-    G[Managers] -- 1 --> GH{Tambien_Ganan} -- N -->H[AwardsManagers]
+    G[Managers] -- N --> GH{Tambien_Ganan} -- N -->H[AwardsManagers]
     
     J[SeriesPost]-->J1([CLAVE1:yearID])       -->JD1{{Número>0}}
     J[SeriesPost]-->J2([CLAVE2:teamIDwinner]) -->JD2{{Texto3}}
