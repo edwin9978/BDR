@@ -1,9 +1,8 @@
-/*1) Añadí una nueva variable, la fecha de Nacimiento, compuesta por otras 3 variables ya existentes*/
+/*1) Crear la variable fecha de nacimiento utilizando otras 3 ya existentes*/
 alter table master add column fecha_nacimiento date;
 update master set fecha_nacimiento = str_to_date(concat(birthYear, '-', birthMonth, '-', birthDay), '%Y-%m-%d');
 
-
-/*2) Añadí otra nueva variable, partiendo en rangos una variable ya existente*/
+/*2) Crear la variable year_rangos, utilizando la variable Year ya existente*/
 alter table batting add column year_rangos varchar(30);
 update batting set year_rangos = 
 	case 
@@ -19,7 +18,7 @@ update batting set year_rangos =
 alter table batting change HR Homeruns int;
 alter table batting change G Games int;
 
-/*4) Cree una nueva variable, usando las 2 recientemente renombradas*/
+/*4) Calcular una variable, porccentaje de homeruns por juego*/
 alter table batting add column hr_ratio float;
 update batting set hr_ratio =
 case 
@@ -28,7 +27,19 @@ case
 end;
 
 
-/*5) Añadí la variable indice de masa corporal, utilizando 2 variables ya existentes*/
+/*5) Calcular indice de masa corpotal de los jugadores*/
 alter table master add column IMC float;
 update master set IMC =  (weight / (height * height)) * 703;
 
+/*Dificultades:
+ * Cree una variable nueva, utilizando una ya existente, la variable nueva consiste en partir en rangos otra variable. 
+ * La única dificultad que tuve fue que para hacer los rangos, no conocía la sentencia case ya que siempre he usado IFs, pero googlie la sintaxis de CASE
+ * y utilizarla fue sencillo.
+ * Otra dificultad fue que al crear la variable homeruns/games, obtuve errores cuando games = 0, entonces tuve que agregar un condicional ahí.
+ * Los demás cambios fueron sencillos */
+
+select * from master;
+   select year_rangos, count(*) as conteo
+   from batting
+   group by year_rangos
+   order by year_rangos;
